@@ -8,12 +8,12 @@ from utils.data_processor import DataProcessor
 
 def main():
     st.set_page_config(
-        page_title="Call Center Lead Pipeline Dashboard",
+        page_title="Lead Pipeline Dashboard",
         page_icon="📞",
         layout="wide"
     )
 
-    st.title("📊 Call Center Lead Pipeline Dashboard")
+    st.title("📊 Lead Pipeline Dashboard")
 
     # Initialize database
     try:

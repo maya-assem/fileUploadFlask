@@ -19,6 +19,9 @@ class CallRecord(Base):
     call_date = Column(Date, nullable=True)
     is_fresh_lead = Column(Boolean, default=False)
     source = Column(String, nullable=True)
+    ring_duration = Column(Float, nullable=True)
+    talk_duration = Column(Float, nullable=True)
+    communication_type = Column(String, nullable=True)
 
 class ChatRecord(Base):
     __tablename__ = 'chat_records'
@@ -37,9 +40,18 @@ class ChatRecord(Base):
     lead_date = Column(Date, nullable=True)
     phone_number = Column(String, nullable=True)
     is_fresh_lead = Column(Boolean, default=False)
+    crm_record = Column(Boolean, default=False)
+    conversation_duration = Column(Integer, nullable=True)
+    initial_response_time = Column(Integer, nullable=True)
+    average_response_time = Column(Integer, nullable=True)
 
 def init_db():
-    engine = create_engine(os.getenv('DATABASE_URL'))
-    Base.metadata.drop_all(engine)  # Drop all tables first
-    Base.metadata.create_all(engine)  # Create new tables
+    # Fixed connection string for SQL Server using Windows Authentication
+    connection_string = (
+        "mssql+pyodbc://DESKTOP-R753PEO/DataUploaderDB"
+        "?driver=ODBC+Driver+17+for+SQL+Server"
+        "&trusted_connection=yes"
+    )
+    engine = create_engine(connection_string)
+    Base.metadata.create_all(engine)  # Create tables if they don't exist
     return engine
